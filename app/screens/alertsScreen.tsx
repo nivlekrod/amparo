@@ -185,9 +185,7 @@ export default function AlertsScreen() {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
-          <Ionicons name="arrow-back" size={24} color="#007AFF" />
-        </TouchableOpacity>
+        <View style={styles.headerSpacer} />
         <Text style={styles.headerTitle}>Alertas</Text>
         <TouchableOpacity onPress={handleMarkAllAsRead}>
           <Text style={styles.markAllButton}>Marcar todos</Text>
@@ -406,8 +404,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
   },
-  backButton: {
-    padding: 4,
+  headerSpacer: {
+    width: 32,
   },
   headerTitle: {
     fontSize: 20,
