@@ -10,22 +10,26 @@ import {
   ScrollView,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     console.log('Login:', email, password);
     // Implementar lógica de login aqui
-    // Verificar se é primeira vez do usuário ou se não completou setup inicial
-    const isFirstTime = true; // Substituir por lógica real de verificação
+    // Após login bem-sucedido
+    await AsyncStorage.setItem('@is_authenticated', 'true');
     
-    if (isFirstTime) {
-      router.push('/screens/initialSetupScreen');
+    // Verifica se já completou o setup inicial
+    const hasCompletedSetup = await AsyncStorage.getItem('@has_completed_setup');
+    
+    if (hasCompletedSetup === 'true') {
+      router.replace('/(tabs)/home');
     } else {
-      router.push('/screens/dashboardScreen');
+      router.replace('/screens/initialSetupScreen');
     }
   };
 

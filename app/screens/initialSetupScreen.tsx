@@ -73,9 +73,10 @@ export default function InitialSetupScreen() {
     router.push('/screens/notificationsScreen');
   };
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     if (elderlyRegistered) {
-      router.push('/screens/dashboardScreen');
+      await AsyncStorage.setItem('@has_completed_setup', 'true');
+      router.replace('/(tabs)/home');
     }
   };
 

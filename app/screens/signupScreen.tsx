@@ -22,8 +22,8 @@ export default function SignUpScreen() {
   const handleSignUp = () => {
     console.log('Cadastro:', name, email, phone, password);
     // Implementar lógica de cadastro aqui
-    // Após cadastro bem-sucedido, redireciona para login
-    router.push('/screens/loginScreen');
+    // Após cadastro bem-sucedido, redireciona para tela de autenticação (login)
+    router.replace('/screens/authScreen');
   };
 
   const handleLogin = () => {

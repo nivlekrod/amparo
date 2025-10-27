@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Onboarding, { OnboardingSlide } from '../../components/onboarding';
 
 const slides: OnboardingSlide[] = [
@@ -26,8 +27,9 @@ const slides: OnboardingSlide[] = [
 export default function OnboardingScreen() {
   const router = useRouter();
 
-  const handleComplete = () => {
-    router.push('./authScreen');
+  const handleComplete = async () => {
+    await AsyncStorage.setItem('@has_seen_onboarding', 'true');
+    router.replace('/screens/authScreen');
   };
 
   return <Onboarding slides={slides} onComplete={handleComplete} />;
