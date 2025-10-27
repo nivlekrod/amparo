@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,9 +6,12 @@ import {
   TouchableOpacity,
   ScrollView,
   RefreshControl,
+  Dimensions,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import * as Location from 'expo-location';
 
 interface Elderly {
   id: string;
@@ -19,6 +22,8 @@ interface Elderly {
   location: string;
   locationAddress: string;
   locationUpdatedAt: string;
+  latitude: number;
+  longitude: number;
 }
 
 interface LocationHistory {
@@ -26,11 +31,20 @@ interface LocationHistory {
   name: string;
   address: string;
   time: string;
+  latitude: number;
+  longitude: number;
 }
+
+const { width } = Dimensions.get('window');
 
 export default function DashboardScreen() {
   const router = useRouter();
   const [refreshing, setRefreshing] = useState(false);
+  const [currentLocation, setCurrentLocation] = useState<{
+    latitude: number;
+    longitude: number;
+  } | null>(null);
+  
   const [selectedElderly, setSelectedElderly] = useState<Elderly>({
     id: '1',
     name: 'Maria Silva',
@@ -40,6 +54,8 @@ export default function DashboardScreen() {
     location: 'Casa',
     locationAddress: 'Rua das Flores, 123',
     locationUpdatedAt: 'há 5min',
+    latitude: -23.5505,
+    longitude: -46.6333,
   });
 
   const [elderlyList] = useState<Elderly[]>([
@@ -52,21 +68,71 @@ export default function DashboardScreen() {
       location: 'Casa',
       locationAddress: 'Rua das Flores, 123',
       locationUpdatedAt: 'há 5min',
+      latitude: -23.5505,
+      longitude: -46.6333,
     },
   ]);
 
   const [locationHistory] = useState<LocationHistory[]>([
-    { id: '1', name: 'Casa', address: 'Rua das Flores, 123', time: 'há 5min' },
-    { id: '2', name: 'Farmácia', address: 'Av. Central, 456', time: 'há 1h' },
-    { id: '3', name: 'Mercado', address: 'Rua do Comércio, 789', time: 'há 3h' },
-    { id: '4', name: 'Parque', address: 'Praça da Liberdade', time: 'há 5h' },
+    { 
+      id: '1', 
+      name: 'Casa', 
+      address: 'Rua das Flores, 123', 
+      time: 'há 5min',
+      latitude: -23.5505,
+      longitude: -46.6333,
+    },
+    { 
+      id: '2', 
+      name: 'Farmácia', 
+      address: 'Av. Central, 456', 
+      time: 'há 1h',
+      latitude: -23.5515,
+      longitude: -46.6343,
+    },
+    { 
+      id: '3', 
+      name: 'Mercado', 
+      address: 'Rua do Comércio, 789', 
+      time: 'há 3h',
+      latitude: -23.5525,
+      longitude: -46.6353,
+    },
+    { 
+      id: '4', 
+      name: 'Parque', 
+      address: 'Praça da Liberdade', 
+      time: 'há 5h',
+      latitude: -23.5535,
+      longitude: -46.6363,
+    },
   ]);
 
   const [showElderlyPicker, setShowElderlyPicker] = useState(false);
 
+  useEffect(() => {
+    requestLocationPermission();
+  }, []);
+
+  const requestLocationPermission = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === 'granted') {
+        const location = await Location.getCurrentPositionAsync({});
+        setCurrentLocation({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        });
+      }
+    } catch (error) {
+      console.error('Erro ao obter localização:', error);
+    }
+  };
+
   const onRefresh = () => {
     setRefreshing(true);
-    // Simular carregamento de dados
+    // Simular carregamento de dados e atualização de localização
+    requestLocationPermission();
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);
@@ -222,9 +288,67 @@ export default function DashboardScreen() {
           </View>
         </View>
 
+        {/* Mapa em Tempo Real */}
+        <View style={styles.mapSection}>
+          <View style={styles.mapHeader}>
+            <View style={styles.mapTitleContainer}>
+              <Text style={styles.sectionTitle}>Localização em Tempo Real</Text>
+              <Text style={styles.mapSubtitle}>Rastreado via WearOS</Text>
+            </View>
+            <View style={styles.liveIndicator}>
+              <View style={styles.liveDot} />
+              <Text style={styles.liveText}>AO VIVO</Text>
+            </View>
+          </View>
+          
+          <View style={styles.mapContainer}>
+            {currentLocation && (
+              <MapView
+                provider={PROVIDER_GOOGLE}
+                style={styles.map}
+                initialRegion={{
+                  latitude: selectedElderly.latitude,
+                  longitude: selectedElderly.longitude,
+                  latitudeDelta: 0.01,
+                  longitudeDelta: 0.01,
+                }}
+                showsUserLocation={false}
+                showsMyLocationButton={false}
+              >
+                {/* Marcador da localização do WearOS do idoso */}
+                <Marker
+                  coordinate={{
+                    latitude: selectedElderly.latitude,
+                    longitude: selectedElderly.longitude,
+                  }}
+                  title={selectedElderly.name}
+                  description={`${selectedElderly.location} - Via WearOS`}
+                >
+                  <View style={styles.customMarker}>
+                    <View style={styles.markerPulse} />
+                    <View style={styles.markerInner}>
+                      <Ionicons name="watch" size={20} color="#fff" />
+                    </View>
+                  </View>
+                </Marker>
+              </MapView>
+            )}
+          </View>
+          
+          <View style={styles.mapInfo}>
+            <Ionicons name="watch" size={16} color="#007AFF" />
+            <Text style={styles.mapInfoText}>
+              {selectedElderly.location} - {selectedElderly.locationAddress}
+            </Text>
+            <View style={styles.wearOSBadge}>
+              <Text style={styles.wearOSText}>WearOS</Text>
+            </View>
+          </View>
+        </View>
+
         {/* Últimas Localizações */}
         <View style={styles.locationsSection}>
-          <Text style={styles.sectionTitle}>Últimas Localizações</Text>
+          <Text style={styles.sectionTitle}>Histórico de Localizações</Text>
           {locationHistory.map((location, index) => (
             <View
               key={location.id}
@@ -454,6 +578,112 @@ const styles = StyleSheet.create({
   },
   locationsSection: {
     marginBottom: 24,
+  },
+  mapSection: {
+    marginBottom: 24,
+  },
+  mapHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 12,
+  },
+  mapTitleContainer: {
+    flex: 1,
+  },
+  mapSubtitle: {
+    fontSize: 12,
+    color: '#999',
+    marginTop: 2,
+  },
+  liveIndicator: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    backgroundColor: '#FFE5E5',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  liveDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#FF3B30',
+  },
+  liveText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#FF3B30',
+  },
+  mapContainer: {
+    height: 300,
+    borderRadius: 16,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+  },
+  map: {
+    width: '100%',
+    height: '100%',
+  },
+  customMarker: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  markerPulse: {
+    position: 'absolute',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: 'rgba(0, 122, 255, 0.2)',
+    borderWidth: 2,
+    borderColor: 'rgba(0, 122, 255, 0.3)',
+  },
+  markerInner: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#007AFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 3,
+    borderColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  mapInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginTop: 12,
+    padding: 12,
+    backgroundColor: '#E8F4FF',
+    borderRadius: 10,
+  },
+  mapInfoText: {
+    flex: 1,
+    fontSize: 14,
+    color: '#007AFF',
+    fontWeight: '600',
+  },
+  wearOSBadge: {
+    backgroundColor: '#007AFF',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 6,
+  },
+  wearOSText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#fff',
   },
   locationItem: {
     flexDirection: 'row',
