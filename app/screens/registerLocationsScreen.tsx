@@ -65,7 +65,14 @@ export default function RegisterLocationsScreen() {
   };
 
   const handleBack = () => {
-    router.back();
+    if (locations.length > 0) {
+      router.push({
+        pathname: '/screens/initialSetupScreen',
+        params: { locationsRegistered: 'true' },
+      });
+    } else {
+      router.back();
+    }
   };
 
   const handleAdd = () => {
@@ -173,12 +180,18 @@ export default function RegisterLocationsScreen() {
 
     if (editingId) {
       setLocations(locations.map(loc => loc.id === editingId ? locationData : loc));
+      setShowAddModal(false);
+      resetForm();
     } else {
       setLocations([...locations, locationData]);
+      setShowAddModal(false);
+      resetForm();
+      Alert.alert(
+        'Sucesso',
+        'Localização cadastrada com sucesso! Você pode adicionar mais localizações ou voltar para a configuração inicial.',
+        [{ text: 'OK' }]
+      );
     }
-
-    setShowAddModal(false);
-    resetForm();
   };
 
   return (
@@ -212,7 +225,7 @@ export default function RegisterLocationsScreen() {
             <Ionicons name="location-outline" size={64} color="#ccc" />
             <Text style={styles.emptyStateText}>Nenhuma localização cadastrada</Text>
             <Text style={styles.emptyStateSubtext}>
-              Toque em "+ Adicionar" para cadastrar
+              Toque em &quot;+ Adicionar&quot; para cadastrar
             </Text>
           </View>
         ) : (

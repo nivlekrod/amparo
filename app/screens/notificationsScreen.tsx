@@ -123,7 +123,7 @@ export default function NotificationsScreen() {
             text: 'Permitir',
             onPress: () => {
               setHasPermission(true);
-              Alert.alert('Sucesso', 'Permissão concedida!');
+              Alert.alert('Sucesso', 'Permissão concedida! Agora você pode adicionar lembretes.');
             },
           },
         ]
@@ -135,7 +135,14 @@ export default function NotificationsScreen() {
   };
 
   const handleBack = () => {
-    router.back();
+    if (hasPermission) {
+      router.push({
+        pathname: '/screens/initialSetupScreen',
+        params: { notificationsConfigured: 'true' },
+      });
+    } else {
+      router.back();
+    }
   };
 
   const handleAdd = () => {
@@ -399,7 +406,7 @@ export default function NotificationsScreen() {
                 <Ionicons name="notifications-outline" size={64} color="#ccc" />
                 <Text style={styles.emptyStateText}>Nenhuma notificação cadastrada</Text>
                 <Text style={styles.emptyStateSubtext}>
-                  Toque em "+ Adicionar" para cadastrar
+                  Toque em &quot;+ Adicionar&quot; para cadastrar
                 </Text>
               </View>
             ) : (

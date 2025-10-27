@@ -6,8 +6,9 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import { useRouter, useLocalSearchParams } from 'expo-router';
+import { useRouter, useLocalSearchParams, useFocusEffect } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function InitialSetupScreen() {
   const router = useRouter();
@@ -16,10 +17,47 @@ export default function InitialSetupScreen() {
   const [locationsRegistered, setLocationsRegistered] = useState(false);
   const [notificationsConfigured, setNotificationsConfigured] = useState(false);
 
-  useEffect(() => {
-    if (params.elderlyRegistered === 'true') {
-      setElderlyRegistered(true);
+  const loadSetupStatus = async () => {
+    try {
+      const elderlyStatus = await AsyncStorage.getItem('elderlyRegistered');
+      const locationsStatus = await AsyncStorage.getItem('locationsRegistered');
+      const notificationsStatus = await AsyncStorage.getItem('notificationsConfigured');
+      
+      if (elderlyStatus === 'true') setElderlyRegistered(true);
+      if (locationsStatus === 'true') setLocationsRegistered(true);
+      if (notificationsStatus === 'true') setNotificationsConfigured(true);
+    } catch (error) {
+      console.error('Erro ao carregar status:', error);
     }
+  };
+
+  useEffect(() => {
+    loadSetupStatus();
+  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      loadSetupStatus();
+    }, [])
+  );
+
+  useEffect(() => {
+    const updateStatus = async () => {
+      if (params.elderlyRegistered === 'true') {
+        setElderlyRegistered(true);
+        await AsyncStorage.setItem('elderlyRegistered', 'true');
+      }
+      if (params.locationsRegistered === 'true') {
+        setLocationsRegistered(true);
+        await AsyncStorage.setItem('locationsRegistered', 'true');
+      }
+      if (params.notificationsConfigured === 'true') {
+        setNotificationsConfigured(true);
+        await AsyncStorage.setItem('notificationsConfigured', 'true');
+      }
+    };
+    
+    updateStatus();
   }, [params]);
 
   const handleRegisterElderly = () => {
