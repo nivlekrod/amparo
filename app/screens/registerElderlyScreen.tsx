@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function RegisterElderlyScreen() {
   const router = useRouter();
@@ -55,7 +56,7 @@ export default function RegisterElderlyScreen() {
     return age;
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // Validação dos campos obrigatórios
     if (!name.trim()) {
       alert('Por favor, preencha o nome completo do idoso.');
@@ -129,6 +130,7 @@ export default function RegisterElderlyScreen() {
 
     // Por enquanto apenas exibe os dados no console
     console.log('Cadastro do idoso:', elderlyData);
+    await AsyncStorage.setItem('elderlyRegistered', 'true');
     setShowSuccessModal(true);
   };
 
@@ -144,10 +146,7 @@ export default function RegisterElderlyScreen() {
   };
 
   const handleFinish = () => {
-    router.push({
-      pathname: '/screens/initialSetupScreen',
-      params: { elderlyRegistered: 'true' }
-    });
+    router.back();
   };
 
   if (showSuccessModal) {

@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Location {
   id: string;
@@ -64,15 +65,11 @@ export default function RegisterLocationsScreen() {
     return cat?.icon || 'location';
   };
 
-  const handleBack = () => {
+  const handleBack = async () => {
     if (locations.length > 0) {
-      router.push({
-        pathname: '/screens/initialSetupScreen',
-        params: { locationsRegistered: 'true' },
-      });
-    } else {
-      router.back();
+      await AsyncStorage.setItem('locationsRegistered', 'true');
     }
+    router.back();
   };
 
   const handleAdd = () => {

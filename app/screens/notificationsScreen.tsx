@@ -13,6 +13,7 @@ import {
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import WheelPicker from '@quidone/react-native-wheel-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface FrequencyConfig {
   type: 'daily' | 'weekly' | 'monthly';
@@ -134,15 +135,11 @@ export default function NotificationsScreen() {
     }
   };
 
-  const handleBack = () => {
-    if (hasPermission) {
-      router.push({
-        pathname: '/screens/initialSetupScreen',
-        params: { notificationsConfigured: 'true' },
-      });
-    } else {
-      router.back();
+  const handleBack = async () => {
+    if (hasPermission && notifications.length > 0) {
+      await AsyncStorage.setItem('notificationsConfigured', 'true');
     }
+    router.back();
   };
 
   const handleAdd = () => {

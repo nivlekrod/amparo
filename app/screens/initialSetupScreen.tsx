@@ -6,13 +6,12 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import { useRouter, useLocalSearchParams, useFocusEffect } from 'expo-router';
+import { useRouter, useFocusEffect } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function InitialSetupScreen() {
   const router = useRouter();
-  const params = useLocalSearchParams();
   const [elderlyRegistered, setElderlyRegistered] = useState(false);
   const [locationsRegistered, setLocationsRegistered] = useState(false);
   const [notificationsConfigured, setNotificationsConfigured] = useState(false);
@@ -41,35 +40,19 @@ export default function InitialSetupScreen() {
     }, [])
   );
 
-  useEffect(() => {
-    const updateStatus = async () => {
-      if (params.elderlyRegistered === 'true') {
-        setElderlyRegistered(true);
-        await AsyncStorage.setItem('elderlyRegistered', 'true');
-      }
-      if (params.locationsRegistered === 'true') {
-        setLocationsRegistered(true);
-        await AsyncStorage.setItem('locationsRegistered', 'true');
-      }
-      if (params.notificationsConfigured === 'true') {
-        setNotificationsConfigured(true);
-        await AsyncStorage.setItem('notificationsConfigured', 'true');
-      }
-    };
-    
-    updateStatus();
-  }, [params]);
-
-  const handleRegisterElderly = () => {
+  const handleRegisterElderly = async () => {
     console.log('Cadastrar Idoso');
+    await AsyncStorage.setItem('elderlyRegistered', 'false');
     router.push('/screens/registerElderlyScreen');
   };
 
-  const handleRegisterLocations = () => {
+  const handleRegisterLocations = async () => {
+    await AsyncStorage.setItem('locationsRegistered', 'false');
     router.push('/screens/registerLocationsScreen');
   };
 
-  const handleConfigureNotifications = () => {
+  const handleConfigureNotifications = async () => {
+    await AsyncStorage.setItem('notificationsConfigured', 'false');
     router.push('/screens/notificationsScreen');
   };
 
