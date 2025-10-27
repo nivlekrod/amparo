@@ -25,7 +25,7 @@ export default function LoginScreen() {
     if (isFirstTime) {
       router.push('/screens/initialSetupScreen');
     } else {
-      router.push('/screens/homeScreen');
+      router.push('/screens/dashboardScreen');
     }
   };
 

@@ -37,7 +37,7 @@ export default function InitialSetupScreen() {
 
   const handleContinue = () => {
     if (elderlyRegistered) {
-      router.push('/screens/homeScreen');
+      router.push('/screens/dashboardScreen');
     }
   };
 
