@@ -7,6 +7,7 @@ import {
   Linking,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import { scaleWidth, scaleHeight, scaleFontSize, scaleModerate } from '../../utils/responsive';
 
 export default function AuthScreen() {
   const router = useRouter();
@@ -80,29 +81,29 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: 30,
+    paddingHorizontal: scaleWidth(30),
   },
   title: {
-    fontSize: 32,
+    fontSize: scaleFontSize(32),
     fontWeight: 'bold',
     color: '#1a1a1a',
-    marginBottom: 12,
+    marginBottom: scaleHeight(12),
     textAlign: 'center',
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: scaleFontSize(16),
     color: '#666',
     textAlign: 'center',
-    lineHeight: 24,
-    marginBottom: 40,
+    lineHeight: scaleHeight(24),
+    marginBottom: scaleHeight(40),
   },
   buttonsContainer: {
-    gap: 16,
+    gap: scaleHeight(16),
   },
   primaryButton: {
     backgroundColor: '#007AFF',
-    paddingVertical: 16,
-    borderRadius: 12,
+    paddingVertical: scaleHeight(16),
+    borderRadius: scaleModerate(12),
     alignItems: 'center',
     shadowColor: '#007AFF',
     shadowOffset: {
@@ -115,31 +116,31 @@ const styles = StyleSheet.create({
   },
   primaryButtonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: scaleFontSize(16),
     fontWeight: '600',
   },
   secondaryButton: {
     backgroundColor: 'transparent',
-    paddingVertical: 16,
-    borderRadius: 12,
+    paddingVertical: scaleHeight(16),
+    borderRadius: scaleModerate(12),
     alignItems: 'center',
     borderWidth: 2,
     borderColor: '#007AFF',
   },
   secondaryButtonText: {
     color: '#007AFF',
-    fontSize: 16,
+    fontSize: scaleFontSize(16),
     fontWeight: '600',
   },
   footer: {
-    paddingHorizontal: 30,
-    paddingBottom: 40,
+    paddingHorizontal: scaleWidth(30),
+    paddingBottom: scaleHeight(40),
   },
   footerText: {
-    fontSize: 12,
+    fontSize: scaleFontSize(12),
     color: '#666',
     textAlign: 'center',
-    lineHeight: 18,
+    lineHeight: scaleHeight(18),
   },
   link: {
     color: '#007AFF',

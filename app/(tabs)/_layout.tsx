@@ -1,5 +1,6 @@
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { scaleHeight, scaleFontSize } from '../../utils/responsive';
 
 export default function TabLayout() {
   return (
@@ -11,12 +12,12 @@ export default function TabLayout() {
           backgroundColor: '#fff',
           borderTopWidth: 1,
           borderTopColor: '#e0e0e0',
-          height: 88,
-          paddingBottom: 34,
-          paddingTop: 8,
+          height: scaleHeight(88),
+          paddingBottom: scaleHeight(34),
+          paddingTop: scaleHeight(8),
         },
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: scaleFontSize(12),
           fontWeight: '600',
         },
         headerShown: false,

@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   FlatList,
-  Dimensions,
   TouchableOpacity,
   Image,
   NativeSyntheticEvent,
@@ -12,8 +11,9 @@ import {
   Pressable,
   ImageSourcePropType,
 } from 'react-native';
+import { dimensions, scaleWidth, scaleHeight, scaleFontSize, scaleModerate } from '../utils/responsive';
 
-const { width } = Dimensions.get('window');
+const { width } = dimensions;
 
 export interface OnboardingSlide {
   id: string;
@@ -135,49 +135,49 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 30,
+    paddingHorizontal: scaleWidth(30),
   },
   image: {
-    width: width * 0.7,
-    height: width * 0.7,
-    marginBottom: 40,
+    width: scaleWidth(width * 0.7),
+    height: scaleWidth(width * 0.7),
+    marginBottom: scaleHeight(40),
   },
   text: {
-    fontSize: 18,
+    fontSize: scaleFontSize(18),
     textAlign: 'center',
-    lineHeight: 26,
-    paddingHorizontal: 20,
+    lineHeight: scaleHeight(26),
+    paddingHorizontal: scaleWidth(20),
   },
   footer: {
-    paddingVertical: 40,
-    paddingHorizontal: 30,
+    paddingVertical: scaleHeight(40),
+    paddingHorizontal: scaleWidth(30),
   },
   pagination: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: scaleHeight(30),
   },
   dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    marginHorizontal: 5,
+    width: scaleWidth(10),
+    height: scaleWidth(10),
+    borderRadius: scaleModerate(5),
+    marginHorizontal: scaleWidth(5),
   },
   activeDot: {
-    width: 30,
+    width: scaleWidth(30),
   },
   inactiveDot: {
     backgroundColor: '#D1D5DB',
   },
   button: {
-    paddingVertical: 16,
-    borderRadius: 12,
+    paddingVertical: scaleHeight(16),
+    borderRadius: scaleModerate(12),
     alignItems: 'center',
   },
   buttonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: scaleFontSize(16),
     fontWeight: '600',
   },
 });

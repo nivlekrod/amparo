@@ -13,6 +13,7 @@ import {
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { scaleWidth, scaleHeight, scaleFontSize, scaleModerate } from '../../utils/responsive';
 
 export default function RegisterElderlyScreen() {
   const router = useRouter();
@@ -318,76 +319,76 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingTop: 60,
-    paddingBottom: 20,
+    paddingHorizontal: scaleWidth(20),
+    paddingTop: scaleHeight(60),
+    paddingBottom: scaleHeight(20),
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
   },
   backButton: {
-    width: 40,
-    height: 40,
+    width: scaleWidth(40),
+    height: scaleWidth(40),
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
   headerTitle: {
-    fontSize: 18,
+    fontSize: scaleFontSize(18),
     fontWeight: '600',
     color: '#1a1a1a',
     flex: 1,
     textAlign: 'center',
   },
   placeholder: {
-    width: 40,
+    width: scaleWidth(40),
   },
   scrollView: {
     flex: 1,
   },
   scrollContent: {
-    paddingHorizontal: 20,
-    paddingTop: 24,
-    paddingBottom: 24,
+    paddingHorizontal: scaleWidth(20),
+    paddingTop: scaleHeight(24),
+    paddingBottom: scaleHeight(24),
   },
   form: {
-    gap: 20,
+    gap: scaleHeight(20),
   },
   inputContainer: {
-    gap: 8,
+    gap: scaleHeight(8),
   },
   label: {
-    fontSize: 14,
+    fontSize: scaleFontSize(14),
     fontWeight: '600',
     color: '#1a1a1a',
   },
   input: {
     backgroundColor: '#f5f5f5',
-    borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    fontSize: 16,
+    borderRadius: scaleModerate(12),
+    paddingHorizontal: scaleWidth(16),
+    paddingVertical: scaleHeight(14),
+    fontSize: scaleFontSize(16),
     color: '#1a1a1a',
     borderWidth: 1,
     borderColor: '#e0e0e0',
   },
   textArea: {
-    minHeight: 100,
-    paddingTop: 14,
+    minHeight: scaleHeight(100),
+    paddingTop: scaleHeight(14),
   },
   helperText: {
-    fontSize: 12,
+    fontSize: scaleFontSize(12),
     color: '#007AFF',
-    marginTop: -4,
+    marginTop: scaleHeight(-4),
   },
   footer: {
-    paddingHorizontal: 20,
-    paddingVertical: 16,
+    paddingHorizontal: scaleWidth(20),
+    paddingVertical: scaleHeight(16),
     borderTopWidth: 1,
     borderTopColor: '#e0e0e0',
   },
   saveButton: {
     backgroundColor: '#007AFF',
-    paddingVertical: 16,
-    borderRadius: 12,
+    paddingVertical: scaleHeight(16),
+    borderRadius: scaleModerate(12),
     alignItems: 'center',
     shadowColor: '#007AFF',
     shadowOffset: {
@@ -400,7 +401,7 @@ const styles = StyleSheet.create({
   },
   saveButtonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: scaleFontSize(16),
     fontWeight: '600',
   },
   successContainer: {
@@ -408,53 +409,53 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 32,
+    paddingHorizontal: scaleWidth(32),
   },
   successContent: {
     alignItems: 'center',
     width: '100%',
   },
   successIconContainer: {
-    marginBottom: 24,
+    marginBottom: scaleHeight(24),
   },
   successTitle: {
-    fontSize: 28,
+    fontSize: scaleFontSize(28),
     fontWeight: 'bold',
     color: '#1a1a1a',
-    marginBottom: 12,
+    marginBottom: scaleHeight(12),
     textAlign: 'center',
   },
   successMessage: {
-    fontSize: 16,
+    fontSize: scaleFontSize(16),
     color: '#666',
     textAlign: 'center',
-    lineHeight: 24,
-    marginBottom: 40,
+    lineHeight: scaleHeight(24),
+    marginBottom: scaleHeight(40),
   },
   successButtons: {
     width: '100%',
-    gap: 12,
+    gap: scaleHeight(12),
   },
   addAnotherButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#E8F4FF',
-    paddingVertical: 16,
-    borderRadius: 12,
-    gap: 8,
+    paddingVertical: scaleHeight(16),
+    borderRadius: scaleModerate(12),
+    gap: scaleWidth(8),
     borderWidth: 1,
     borderColor: '#007AFF',
   },
   addAnotherButtonText: {
     color: '#007AFF',
-    fontSize: 16,
+    fontSize: scaleFontSize(16),
     fontWeight: '600',
   },
   finishButton: {
     backgroundColor: '#007AFF',
-    paddingVertical: 16,
-    borderRadius: 12,
+    paddingVertical: scaleHeight(16),
+    borderRadius: scaleModerate(12),
     alignItems: 'center',
     shadowColor: '#007AFF',
     shadowOffset: {
@@ -467,7 +468,7 @@ const styles = StyleSheet.create({
   },
   finishButtonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: scaleFontSize(16),
     fontWeight: '600',
   },
 });

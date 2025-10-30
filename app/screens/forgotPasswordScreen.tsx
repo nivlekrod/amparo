@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { scaleWidth, scaleHeight, scaleFontSize, scaleModerate } from '../../utils/responsive';
 
 export default function ForgotPasswordScreen() {
   const router = useRouter();
@@ -203,52 +204,52 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: 30,
-    paddingTop: 80,
+    paddingHorizontal: scaleWidth(30),
+    paddingTop: scaleHeight(80),
   },
   title: {
-    fontSize: 32,
+    fontSize: scaleFontSize(32),
     fontWeight: 'bold',
     color: '#1a1a1a',
-    marginBottom: 8,
+    marginBottom: scaleHeight(8),
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: scaleFontSize(16),
     color: '#666',
-    marginBottom: 40,
-    lineHeight: 24,
+    marginBottom: scaleHeight(40),
+    lineHeight: scaleWidth(24),
   },
   form: {
-    gap: 20,
+    gap: scaleWidth(20),
   },
   inputContainer: {
-    gap: 8,
+    gap: scaleWidth(8),
   },
   label: {
-    fontSize: 14,
+    fontSize: scaleFontSize(14),
     fontWeight: '600',
     color: '#1a1a1a',
   },
   input: {
     backgroundColor: '#f5f5f5',
-    borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    fontSize: 16,
+    borderRadius: scaleModerate(12),
+    paddingHorizontal: scaleWidth(16),
+    paddingVertical: scaleHeight(14),
+    fontSize: scaleFontSize(16),
     color: '#1a1a1a',
     borderWidth: 1,
     borderColor: '#e0e0e0',
   },
   button: {
     backgroundColor: '#007AFF',
-    paddingVertical: 16,
-    borderRadius: 12,
+    paddingVertical: scaleHeight(16),
+    borderRadius: scaleModerate(12),
     alignItems: 'center',
-    marginTop: 12,
+    marginTop: scaleHeight(12),
     shadowColor: '#007AFF',
     shadowOffset: {
-      width: 0,
-      height: 4,
+      width: scaleWidth(0),
+      height: scaleWidth(4),
     },
     shadowOpacity: 0.3,
     shadowRadius: 8,
@@ -256,16 +257,16 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: scaleFontSize(16),
     fontWeight: '600',
   },
   linkButton: {
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: scaleHeight(8),
   },
   linkText: {
     color: '#007AFF',
-    fontSize: 14,
+    fontSize: scaleFontSize(14),
     fontWeight: '600',
   },
 });

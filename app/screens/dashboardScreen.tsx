@@ -6,12 +6,14 @@ import {
   TouchableOpacity,
   ScrollView,
   RefreshControl,
-  Dimensions,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Location from 'expo-location';
+import { dimensions, scaleWidth, scaleHeight, scaleFontSize, scaleModerate, wp, hp } from '../../utils/responsive';
+
+const { width } = dimensions;
 
 interface Elderly {
   id: string;
@@ -34,8 +36,6 @@ interface LocationHistory {
   latitude: number;
   longitude: number;
 }
-
-const { width } = Dimensions.get('window');
 
 export default function DashboardScreen() {
   const router = useRouter();
@@ -393,38 +393,38 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingTop: 60,
-    paddingBottom: 20,
+    paddingHorizontal: scaleWidth(20),
+    paddingTop: scaleHeight(60),
+    paddingBottom: scaleHeight(20),
     backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
   },
   backButton: {
-    padding: 4,
+    padding: scaleWidth(4),
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: scaleFontSize(20),
     fontWeight: '700',
     color: '#1a1a1a',
   },
   refreshButton: {
-    padding: 4,
+    padding: scaleWidth(4),
   },
   content: {
     flex: 1,
-    padding: 20,
+    padding: scaleWidth(20),
   },
   elderlySelector: {
-    marginBottom: 20,
+    marginBottom: scaleHeight(20),
   },
   elderlyButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: '#f9f9f9',
-    padding: 16,
-    borderRadius: 12,
+    padding: scaleWidth(16),
+    borderRadius: scaleModerate(12),
     borderWidth: 1,
     borderColor: '#e0e0e0',
   },
@@ -432,25 +432,25 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   elderlyName: {
-    fontSize: 18,
+    fontSize: scaleFontSize(18),
     fontWeight: '600',
     color: '#1a1a1a',
-    marginBottom: 4,
+    marginBottom: scaleHeight(4),
   },
   statusRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: scaleWidth(6),
   },
   statusDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+    width: scaleWidth(8),
+    height: scaleWidth(8),
+    borderRadius: scaleModerate(4),
   },
   statusDotLarge: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
+    width: scaleWidth(10),
+    height: scaleWidth(10),
+    borderRadius: scaleModerate(5),
   },
   statusOnline: {
     backgroundColor: '#34C759',
@@ -459,18 +459,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#999',
   },
   statusText: {
-    fontSize: 14,
+    fontSize: scaleFontSize(14),
     color: '#666',
   },
   statusTextLarge: {
-    fontSize: 16,
+    fontSize: scaleFontSize(16),
     color: '#666',
     fontWeight: '500',
   },
   elderlyDropdown: {
-    marginTop: 8,
+    marginTop: scaleHeight(8),
     backgroundColor: '#fff',
-    borderRadius: 12,
+    borderRadius: scaleModerate(12),
     borderWidth: 1,
     borderColor: '#e0e0e0',
     overflow: 'hidden',
@@ -479,20 +479,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 16,
+    padding: scaleWidth(16),
     borderBottomWidth: 1,
     borderBottomColor: '#f0f0f0',
   },
   elderlyOptionName: {
-    fontSize: 16,
+    fontSize: scaleFontSize(16),
     fontWeight: '500',
     color: '#1a1a1a',
   },
   elderlyCard: {
     backgroundColor: '#f9f9f9',
-    borderRadius: 16,
-    padding: 20,
-    marginBottom: 24,
+    borderRadius: scaleModerate(16),
+    padding: scaleWidth(20),
+    marginBottom: scaleHeight(24),
     borderWidth: 1,
     borderColor: '#e0e0e0',
   },
@@ -500,21 +500,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: scaleHeight(20),
   },
   elderlyCardName: {
-    fontSize: 22,
+    fontSize: scaleFontSize(22),
     fontWeight: '700',
     color: '#1a1a1a',
   },
   infoGrid: {
     flexDirection: 'row',
-    gap: 12,
+    gap: scaleWidth(12),
   },
   infoCard: {
     flex: 1,
-    borderRadius: 12,
-    padding: 16,
+    borderRadius: scaleModerate(12),
+    padding: scaleWidth(16),
   },
   heartRateCard: {
     backgroundColor: '#FFE5E5',
@@ -525,45 +525,45 @@ const styles = StyleSheet.create({
   infoCardHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    marginBottom: 12,
+    gap: scaleWidth(8),
+    marginBottom: scaleHeight(12),
   },
   infoCardTitle: {
-    fontSize: 14,
+    fontSize: scaleFontSize(14),
     fontWeight: '600',
     color: '#666',
   },
   infoCardValue: {
-    fontSize: 24,
+    fontSize: scaleFontSize(24),
     fontWeight: '700',
     color: '#1a1a1a',
-    marginBottom: 4,
+    marginBottom: scaleHeight(4),
   },
   infoCardTime: {
-    fontSize: 12,
+    fontSize: scaleFontSize(12),
     color: '#999',
   },
   actionsSection: {
-    marginBottom: 24,
+    marginBottom: scaleHeight(24),
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: scaleFontSize(18),
     fontWeight: '700',
     color: '#1a1a1a',
-    marginBottom: 12,
+    marginBottom: scaleHeight(12),
   },
   actionsGrid: {
     flexDirection: 'row',
-    gap: 12,
+    gap: scaleWidth(12),
   },
   actionButton: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
-    paddingVertical: 16,
-    borderRadius: 12,
+    gap: scaleWidth(8),
+    paddingVertical: scaleHeight(16),
+    borderRadius: scaleModerate(12),
   },
   callButton: {
     backgroundColor: '#34C759',
@@ -572,53 +572,53 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF3B30',
   },
   actionButtonText: {
-    fontSize: 16,
+    fontSize: scaleFontSize(16),
     fontWeight: '700',
     color: '#fff',
   },
   locationsSection: {
-    marginBottom: 24,
+    marginBottom: scaleHeight(24),
   },
   mapSection: {
-    marginBottom: 24,
+    marginBottom: scaleHeight(24),
   },
   mapHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 12,
+    marginBottom: scaleHeight(12),
   },
   mapTitleContainer: {
     flex: 1,
   },
   mapSubtitle: {
-    fontSize: 12,
+    fontSize: scaleFontSize(12),
     color: '#999',
-    marginTop: 2,
+    marginTop: scaleHeight(2),
   },
   liveIndicator: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: scaleWidth(6),
     backgroundColor: '#FFE5E5',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 12,
+    paddingHorizontal: scaleWidth(10),
+    paddingVertical: scaleHeight(4),
+    borderRadius: scaleModerate(12),
   },
   liveDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+    width: scaleWidth(8),
+    height: scaleWidth(8),
+    borderRadius: scaleModerate(4),
     backgroundColor: '#FF3B30',
   },
   liveText: {
-    fontSize: 11,
+    fontSize: scaleFontSize(11),
     fontWeight: '700',
     color: '#FF3B30',
   },
   mapContainer: {
-    height: 300,
-    borderRadius: 16,
+    height: scaleHeight(300),
+    borderRadius: scaleModerate(16),
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: '#e0e0e0',
@@ -634,17 +634,17 @@ const styles = StyleSheet.create({
   },
   markerPulse: {
     position: 'absolute',
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: scaleWidth(60),
+    height: scaleWidth(60),
+    borderRadius: scaleModerate(30),
     backgroundColor: 'rgba(0, 122, 255, 0.2)',
     borderWidth: 2,
     borderColor: 'rgba(0, 122, 255, 0.3)',
   },
   markerInner: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: scaleWidth(40),
+    height: scaleWidth(40),
+    borderRadius: scaleModerate(20),
     backgroundColor: '#007AFF',
     alignItems: 'center',
     justifyContent: 'center',
@@ -662,35 +662,35 @@ const styles = StyleSheet.create({
   mapInfo: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    marginTop: 12,
-    padding: 12,
+    gap: scaleWidth(8),
+    marginTop: scaleHeight(12),
+    padding: scaleWidth(12),
     backgroundColor: '#E8F4FF',
-    borderRadius: 10,
+    borderRadius: scaleModerate(10),
   },
   mapInfoText: {
     flex: 1,
-    fontSize: 14,
+    fontSize: scaleFontSize(14),
     color: '#007AFF',
     fontWeight: '600',
   },
   wearOSBadge: {
     backgroundColor: '#007AFF',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 6,
+    paddingHorizontal: scaleWidth(8),
+    paddingVertical: scaleHeight(4),
+    borderRadius: scaleModerate(6),
   },
   wearOSText: {
-    fontSize: 11,
+    fontSize: scaleFontSize(11),
     fontWeight: '700',
     color: '#fff',
   },
   locationItem: {
     flexDirection: 'row',
     backgroundColor: '#f9f9f9',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
+    borderRadius: scaleModerate(12),
+    padding: scaleWidth(16),
+    marginBottom: scaleHeight(12),
     borderWidth: 1,
     borderColor: '#e0e0e0',
   },
@@ -699,7 +699,7 @@ const styles = StyleSheet.create({
     borderColor: '#007AFF',
   },
   locationIconContainer: {
-    marginRight: 12,
+    marginRight: scaleWidth(12),
   },
   locationDetails: {
     flex: 1,
@@ -708,24 +708,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 4,
+    marginBottom: scaleHeight(4),
   },
   locationName: {
-    fontSize: 16,
+    fontSize: scaleFontSize(16),
     fontWeight: '600',
     color: '#1a1a1a',
   },
   currentBadge: {
-    fontSize: 14,
+    fontSize: scaleFontSize(14),
     fontWeight: '600',
     color: '#007AFF',
   },
   locationTime: {
-    fontSize: 12,
+    fontSize: scaleFontSize(12),
     color: '#999',
   },
   locationAddress: {
-    fontSize: 14,
+    fontSize: scaleFontSize(14),
     color: '#666',
   },
 });

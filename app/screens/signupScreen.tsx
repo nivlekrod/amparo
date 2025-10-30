@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import { scaleWidth, scaleHeight, scaleFontSize, scaleModerate } from '../../utils/responsive';
 
 export default function SignUpScreen() {
   const router = useRouter();
@@ -144,47 +145,47 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: 30,
-    paddingTop: 60,
+    paddingHorizontal: scaleWidth(30),
+    paddingTop: scaleHeight(60),
   },
   title: {
-    fontSize: 32,
+    fontSize: scaleFontSize(32),
     fontWeight: 'bold',
     color: '#1a1a1a',
-    marginBottom: 8,
+    marginBottom: scaleHeight(8),
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: scaleFontSize(16),
     color: '#666',
-    marginBottom: 40,
+    marginBottom: scaleHeight(40),
   },
   form: {
-    gap: 20,
+    gap: scaleHeight(20),
   },
   inputContainer: {
-    gap: 8,
+    gap: scaleHeight(8),
   },
   label: {
-    fontSize: 14,
+    fontSize: scaleFontSize(14),
     fontWeight: '600',
     color: '#1a1a1a',
   },
   input: {
     backgroundColor: '#f5f5f5',
-    borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    fontSize: 16,
+    borderRadius: scaleModerate(12),
+    paddingHorizontal: scaleWidth(16),
+    paddingVertical: scaleHeight(14),
+    fontSize: scaleFontSize(16),
     color: '#1a1a1a',
     borderWidth: 1,
     borderColor: '#e0e0e0',
   },
   signupButton: {
     backgroundColor: '#007AFF',
-    paddingVertical: 16,
-    borderRadius: 12,
+    paddingVertical: scaleHeight(16),
+    borderRadius: scaleModerate(12),
     alignItems: 'center',
-    marginTop: 12,
+    marginTop: scaleHeight(12),
     shadowColor: '#007AFF',
     shadowOffset: {
       width: 0,
@@ -196,16 +197,16 @@ const styles = StyleSheet.create({
   },
   signupButtonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: scaleFontSize(16),
     fontWeight: '600',
   },
   footer: {
-    paddingHorizontal: 30,
-    paddingBottom: 40,
-    paddingTop: 20,
+    paddingHorizontal: scaleWidth(30),
+    paddingBottom: scaleHeight(40),
+    paddingTop: scaleHeight(20),
   },
   footerText: {
-    fontSize: 14,
+    fontSize: scaleFontSize(14),
     color: '#666',
     textAlign: 'center',
   },
